@@ -4,7 +4,9 @@ public:
         if(target == 0) return true;
         if(nums.size() == idx || target < 0) return false;
         if(dp[idx][target] != -1) return dp[idx][target];
-        return dp[idx][target] = partition(nums,target,idx+1,dp) || partition(nums,target - nums[idx],idx+1,dp);
+        bool pick = partition(nums,target,idx+1,dp);
+        bool no_pick = partition(nums,target - nums[idx],idx+1,dp);
+        return dp[idx][target] = pick || no_pick;
     }
     bool canPartition(vector<int>& nums) {
         int sum = accumulate(nums.begin(),nums.end(),0);
