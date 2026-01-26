@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // don't understand fully 
     long long countOperationsToEmptyArray(vector<int>& nums) {
         vector<pair<int,int>> pos;
         for(int i = 0; i<nums.size(); i++) {
