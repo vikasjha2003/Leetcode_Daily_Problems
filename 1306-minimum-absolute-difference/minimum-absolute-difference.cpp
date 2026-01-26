@@ -2,12 +2,16 @@ class Solution {
 public:
     vector<vector<int>> minimumAbsDifference(vector<int>& arr) {
         sort(arr.begin(),arr.end());
-        map<int,vector<vector<int>>> mpp;
+        vector<vector<int>> pairs;
+        int mina = INT_MAX;
         for(int i = 0; i<arr.size()-1; i++) {
             int a = abs(arr[i] - arr[i+1]);
-            mpp[a].push_back({arr[i],arr[i+1]});
+            mina = min(mina,a);
         }
-        auto it = mpp.begin();
-        return it->second;
+        for(int i = 0; i<arr.size()-1; i++) {
+            int a = abs(arr[i] - arr[i+1]);
+            if(a == mina) pairs.push_back({arr[i],arr[i+1]});
+        }
+        return pairs;
     }
 };
