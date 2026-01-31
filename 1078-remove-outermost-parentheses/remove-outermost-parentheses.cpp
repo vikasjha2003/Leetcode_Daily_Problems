@@ -4,10 +4,7 @@ public:
         string res = "";
         stack<char> st;
         for(char & c : s) {
-            if(st.empty()) {
-                st.push(c);
-                continue;
-            }
+            if(st.empty()) st.push(c);
             else {
                 if(c == '(') st.push(c);
                 else st.pop();
