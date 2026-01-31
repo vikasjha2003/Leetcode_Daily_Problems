@@ -7,13 +7,12 @@ public:
             vector<int> freq (26,0);
             int maxi = 0;
             for(int j = i; j<n; j++) {
-                int key = s[j] - 'a';
-                freq[key]++;
+                freq[s[j] - 'a']++;
                 int mini = INT_MAX;
                 for(int k = 0; k<26; k++) {
                     if(freq[k] != 0) mini = min(mini,freq[k]);
                 }
-                maxi = max(maxi,freq[key]);
+                maxi = max(maxi,freq[s[j] - 'a']);
                 res += maxi - mini;
             }
         }
