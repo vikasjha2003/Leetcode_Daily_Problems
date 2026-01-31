@@ -11,9 +11,8 @@ public:
             else {
                 if(c == '(') st.push(c);
                 else st.pop();
+                if(!st.empty()) res.push_back(c);
             }
-            if(st.empty()) continue;
-            res.push_back(c);
         }
         return res;
     }
