@@ -4,7 +4,7 @@ public:
         if(hand.size() % group != 0) return false;
         unordered_map<int,int> freq;
         priority_queue<int , vector<int> , greater<int>> mini;
-        for(int i : hand) {
+        for(int &i : hand) {
             freq[i]++;
             mini.push(i);
         }
