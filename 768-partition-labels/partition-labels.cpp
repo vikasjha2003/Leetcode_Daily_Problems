@@ -12,7 +12,7 @@ public:
             }
         }
         sort(interval.begin(),interval.end());
-        vector<vector<int>> merge;
+        vector<int> res;
         for(int i = 0; i<26; i++) {
             if(interval[i][0] == -1) continue;
             int start = interval[i][0];
@@ -23,12 +23,8 @@ public:
                 }
                 i++;
             }
-            merge.push_back({start , end});
+            res.push_back(end - start + 1);
             i--;
-        }
-        vector<int> res;
-        for(int i = 0; i<merge.size(); i++) {
-            res.push_back(merge[i][1] - merge[i][0] + 1);
         }
         return res;
     }
