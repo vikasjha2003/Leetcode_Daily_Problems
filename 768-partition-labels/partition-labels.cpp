@@ -1,30 +1,18 @@
 class Solution {
 public:
     vector<int> partitionLabels(string s) {
-        vector<vector<int>> interval (26 , vector<int> (2 , -1));
+        unordered_map<char,int> last;
         for(int i = 0; i<s.length(); i++) {
-            int key = s[i] - 'a';
-            if(interval[key][0] == -1) {
-                interval[key][0] = i;
-                interval[key][1] = i;
-            } else {
-                interval[key][1] = i;
-            }
+            last[s[i]] = i;
         }
-        sort(interval.begin(),interval.end());
         vector<int> res;
-        for(int i = 0; i<26; i++) {
-            if(interval[i][0] == -1) continue;
-            int start = interval[i][0];
-            int end = interval[i][1];
-            while( i < 26 && interval[i][0] <= end) {
-                if(end < interval[i][1]) {
-                    end = interval[i][1];
-                }
-                i++;
+        int start = 0 , end = 0;
+        for(int i = 0; i<s.length(); i++) {
+            end = max(end,last[s[i]]);
+            if(i == end) {
+                res.push_back(end - start + 1);
+                start = i + 1;
             }
-            res.push_back(end - start + 1);
-            i--;
         }
         return res;
     }
