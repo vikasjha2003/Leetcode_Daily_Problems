@@ -6,13 +6,9 @@ public:
         for(char i : s) if(i == 'a') a++;
         int b = 0;
         for(char &i : s) {
-            if(i == 'a') {
-                a--;
-                res = min(res , a+b);
-            } else {
-                res = min(res , a+b);
-                b++;
-            }
+            if(i == 'a')  a--;
+            res = min(res , a+b);
+            if(i == 'b') b++;            
         }
         return res;
     }
