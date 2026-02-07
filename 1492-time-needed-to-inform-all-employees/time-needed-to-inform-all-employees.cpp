@@ -1,11 +1,5 @@
 class Solution {
 public:
-    void DFS (vector<vector<int>> &adj, vector<int> &informtime, int &maxi, int cur, int head) {
-        maxi = max(maxi,cur);
-        for(int i : adj[head]) {
-            DFS(adj, informtime, maxi, cur + informtime[head], i);
-        }
-    }
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
         vector<vector<int>> adj (n);
         for(int i = 0; i<n; i++) {
@@ -13,7 +7,20 @@ public:
             else adj[manager[i]].push_back(i);
         }
         int max_time = 0;
-        DFS(adj,informTime,max_time,0,headID);
+        queue<pair<int,int>> q;
+        q.push({headID, 0});
+        while(!q.empty()) {
+            int n = q.size();
+            while(n--) {
+                auto node = q.front();
+                q.pop();
+                int time = node.second + informTime[node.first];
+                max_time = max(max_time , time);
+                for(int i : adj[node.first]) {
+                    q.push({i,time});
+                }
+            }
+        }
         return max_time;
     }
 };
