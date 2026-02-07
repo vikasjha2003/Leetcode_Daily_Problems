@@ -9,9 +9,8 @@ public:
         } 
         vector<vector<int>> res;
         while(!pq.empty()) {
-            auto it = pq.top();
+            res.push_back(points[pq.top().second]);
             pq.pop();
-            res.push_back(points[it.second]);
         }
         return res;
     }
