@@ -1,9 +1,9 @@
 class Solution {
 public:
-    void DFS (vector<vector<int>> &adj, int &maxi, int cur, int head,vector<int> &informtime) {
+    void DFS (vector<vector<int>> &adj, vector<int> &informtime, int &maxi, int cur, int head) {
         maxi = max(maxi,cur);
         for(int i : adj[head]) {
-            DFS(adj,maxi,cur + informtime[head], i, informtime);
+            DFS(adj, informtime, maxi, cur + informtime[head], i);
         }
     }
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
@@ -13,7 +13,7 @@ public:
             else adj[manager[i]].push_back(i);
         }
         int max_time = 0;
-        DFS(adj,max_time,0,headID,informTime);
+        DFS(adj,informTime,max_time,0,headID);
         return max_time;
     }
 };
