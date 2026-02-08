@@ -17,7 +17,8 @@ public:
         int maxi = 0;
         for(int i = 0; i<m; i++) {
             for(int j = 0; j<n; j++) {
-                maxi = max(maxi,DFS(grid,visited,i,j));
+                int a = DFS(grid,visited,i,j);
+                if(maxi < a) maxi = a;
             }
         }
         return maxi;
