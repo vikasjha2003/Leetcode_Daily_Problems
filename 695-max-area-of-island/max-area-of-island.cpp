@@ -16,8 +16,7 @@ public:
                     visited[i][j] = true;
                     int sum = 0;
                     while(!q.empty()) {
-                        auto it = q.front();
-                        q.pop();
+                        auto &it = q.front();
                         sum += grid[it.first][it.second];
                         for(int k = 0; k<4; k++) {
                             int row = it.first + drow[k];
@@ -26,6 +25,7 @@ public:
                             q.push({row,col});
                             visited[row][col] = true;
                         }
+                        q.pop();
                     }
                     maxi = max(sum,maxi);
                 }
