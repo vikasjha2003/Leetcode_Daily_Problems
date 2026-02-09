@@ -13,15 +13,16 @@ public:
                     bool flag = false;
                     queue<pair<int,int>> q;
                     q.push({i,j});
+                    visited[i][j] = true;
                     while(!q.empty()) {
                         auto &it = q.front();
-                        visited[it.first][it.second] = true;
-                        if(it.first -1 < 0 || it.second - 1 < 0 || it.first + 1 == m || it.second + 1 == n) flag = true;
+                        if(it.first == 0 || it.second == 0 || it.first == m-1 || it.second == n - 1) flag = true;
                         for(int k = 0; k < 4; k++) {
                             int row = it.first + drow[k];
                             int col = it.second + dcol[k];
                             if(row < 0 || col < 0 || row == m || col == n || visited[row][col] == true || grid[row][col] == 1) continue;
                             q.push({row,col});
+                            visited[row][col] = true;
                         }
                         q.pop();
                     }
