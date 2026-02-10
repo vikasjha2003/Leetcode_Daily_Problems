@@ -1,6 +1,8 @@
 class Solution {
 public:
     int m , n;
+    int drow[4] = {1, -1, 0, 0};
+    int dcol[4] = {0, 0, 1, -1};
     void DFS(const vector<vector<int>> &grid,
             vector<vector<int>> &res,
             vector<vector<bool>> &visited,
@@ -13,20 +15,14 @@ public:
             return;
 
         visited[row][col] = true;
-
-        bool isBorder = false;
-        int drow[] = {1, -1, 0, 0};
-        int dcol[] = {0, 0, 1, -1};
-
         for(int d = 0; d < 4; d++) {
             int nr = row + drow[d];
             int nc = col + dcol[d];
             if(nr < 0 || nc < 0 || nr >= m || nc >= n || grid[nr][nc] != component) {
-                isBorder = true;
+                res[row][col] = color;
             }
             DFS(grid, res, visited, nr, nc, color, component);
         }
-        if(isBorder) res[row][col] = color;
     }
 
     vector<vector<int>> colorBorder(vector<vector<int>>& grid, int row, int col, int color) {
