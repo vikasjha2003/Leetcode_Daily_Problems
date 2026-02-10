@@ -2,9 +2,8 @@ class Solution {
 public:
     int longestBalanced(vector<int>& nums) {
         int maxlen = 0;
-        unordered_set<int> st;
-        for(int j = 0; j<nums.size() - maxlen; j++) {
-            st.clear();
+        for(int j = 0; j<nums.size() - maxlen; j++) { // doing - maxlen to reduce the range of possible answer
+            unordered_set<int> st;
             int count = 0;
             for(int i = j; i<nums.size(); i++) {
                 if(st.find(nums[i]) == st.end()) {
