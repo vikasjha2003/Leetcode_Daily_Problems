@@ -1,8 +1,7 @@
 class Solution {
 public:
-    bool DFS (vector<vector<int>>& graph, 
-    vector<bool> &check, vector<bool> &visited ,int node) {
-        for(int n : graph[node]) {
+    bool DFS (vector<vector<int>>& graph,vector<bool> &check,vector<bool> &visited,int node) {
+        for(int &n : graph[node]) {
             if(!visited[n]) {
                 visited[n] = true;
                 if(!DFS(graph,check,visited,n)) return false;
