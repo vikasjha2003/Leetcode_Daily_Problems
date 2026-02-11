@@ -3,17 +3,22 @@ public:
     int m , n;
     int drow[4] = {1,-1,0,0};
     int dcol[4] = {0,0,1,-1};
-    int path(vector<vector<int>> grid, int count, int row, int col) {
+    int path(vector<vector<int>> &grid, int count, int row, int col) {
         if(grid[row][col] == 2 && count == 0) return 1;
         if(grid[row][col] == 2) return 0;
-        grid[row][col] = -1; // marking as visited
+        // marking as visited
+        grid[row][col] = -1; 
+        count--;
         int sum = 0;
         for(int i = 0; i<4; i++) {
             int nr = row + drow[i];
             int nc = col + dcol[i];
             if(nr < 0 || nc < 0 || nr == m || nc == n || grid[nr][nc] == -1) continue;
-            sum += path(grid,count - 1,nr,nc);
+            sum += path(grid,count,nr,nc);
         }
+        // Backtracking
+        grid[row][col] = 0;
+        count++;
         return sum;
     }
     int uniquePathsIII(vector<vector<int>>& grid) {
