@@ -1,25 +1,28 @@
 class Solution {
 public:
-
-    void generate(string &s, string ans , vector<string> &res, int idx) {
-        if(idx == s.length()) {
-            res.push_back(ans);
+    int n ;
+    void generate(string &s, vector<string> &res, int idx) {
+        if(idx == n) {
+            res.push_back(s);
             return;
         }
-        generate(s,ans + s[idx],res,idx+1);
+        generate(s,res,idx+1);
         if(s[idx] >= 'A' && s[idx] <= 'Z') {
-            char c = s[idx] + 32;
-            generate(s,ans + c,res,idx+1);
-        }
+            s[idx] = s[idx] + 32;
+            generate(s,res,idx+1);
+            s[idx] = s[idx] - 32;
+        } 
         else if (s[idx] >= 'a' && s[idx] <= 'z') {
-            char c = s[idx] - 32;
-            generate(s,ans + c,res,idx+1);
+            s[idx] = s[idx] - 32;
+            generate(s,res,idx+1);
+            s[idx] = s[idx] + 32;
         }
     }
 
     vector<string> letterCasePermutation(string s) {
+        n = s.length();
         vector<string> res;
-        generate(s,"",res,0);
+        generate(s,res,0);
         return res;
     }
 };
