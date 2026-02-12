@@ -2,9 +2,9 @@ class Solution {
 public:
     int longestBalanced(string s) {
         int n = s.size();
-        int maxLen = 0;
+        int maxlen = 0;
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n - maxlen; i++) {
             vector<int> freq(26, 0); 
             for (int j = i; j < n; j++) {
                 freq[s[j] - 'a']++;
@@ -21,9 +21,9 @@ public:
                 }
 
                 if (balanced)
-                    maxLen = max(maxLen, j - i + 1);
+                    maxlen = max(maxlen, j - i + 1);
             }
         }
-        return maxLen;
+        return maxlen;
     }
 };
