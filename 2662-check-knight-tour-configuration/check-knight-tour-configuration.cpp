@@ -5,19 +5,20 @@ public:
         int n = grid.size();
         int drow[8] = {2,2,1,1,-1,-1,-2,-2};
         int dcol[8] = {1,-1,2,-2,2,-2,1,-1};
-        queue<pair<int,int>> q;
-        q.push({0,0});
+        int row = 0;
+        int col = 0;
         for(int i = 1; i< n*n; i++) {
-            auto it = q.front();
-            q.pop();
+            bool flag = false;
             for(int j = 0; j<8; j++) {
-                int row = it.first + drow[j];
-                int col = it.second + dcol[j];
-                if(row < 0 || col < 0 || row >= n || col >= n || grid[row][col] != i) continue;
-                q.push({row,col});
+                int nr = row + drow[j];
+                int nc = col + dcol[j];
+                if(nr < 0 || nc < 0 || nr >= n || nc >= n || grid[nr][nc] != i) continue;
+                row = nr;
+                col = nc;
+                flag = true;
                 break;
             }
-            if(q.empty()) return false;
+            if(!flag) return false;
         }
         return true;  
     }
