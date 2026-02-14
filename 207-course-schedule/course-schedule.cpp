@@ -1,28 +1,27 @@
 class Solution {
 public:
-    bool DFS(vector<vector<int>> &adj, vector<bool> &visited, vector<bool> &pathvisited, int node) {
-        pathvisited[node] = visited[node] = true;
-        for(int &i : adj[node]) {
-            if(pathvisited[i]) return true;
-            if(!visited[i]) {
-                if(DFS(adj,visited,pathvisited,i)) return true;
-            }
-        }
-        pathvisited[node] = false;
-        return false;
-    }
     bool canFinish(int n, vector<vector<int>>& prerequisites) {
+        vector<int> indegree (n,0);
         vector<vector<int>> adj (n);
-        for(auto &it : prerequisites) {
+        for(auto it : prerequisites) {
             adj[it[1]].push_back(it[0]);
+            indegree[it[0]]++;
         }
-        vector<bool> visited (n,false);
-        vector<bool> pathvisited (n,false);
-        for(int start = 0; start<n; start++) {
-            if(!visited[start]) {
-                if(DFS(adj,visited,pathvisited,start)) return false;
+        queue<int> q;
+        for(int i = 0; i<n ; i++) {
+            if(indegree[i] == 0) q.push(i);
+        }
+        int count = 0;
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+            count++;
+            for(int i : adj[node]) {
+                indegree[i]--;
+                if(indegree[i] == 0) q.push(i);
             }
         }
-        return true;
+        if(count == n) return true;
+        return false;
     }
 };
