@@ -3,7 +3,7 @@ public:
     bool canFinish(int n, vector<vector<int>>& prerequisites) {
         vector<int> indegree (n,0);
         vector<vector<int>> adj (n);
-        for(auto it : prerequisites) {
+        for(auto &it : prerequisites) {
             adj[it[0]].push_back(it[1]);
             indegree[it[1]]++;
         }
@@ -16,7 +16,7 @@ public:
             int node = q.front();
             q.pop();
             count++;
-            for(int i : adj[node]) {
+            for(int &i : adj[node]) {
                 indegree[i]--;
                 if(indegree[i] == 0) q.push(i);
             }
