@@ -1,36 +1,28 @@
 class Solution {
-private:
-    bool dfs(int node, const vector<vector<int>>& adj, vector<bool>& vis, vector<bool>& path) {
-        vis[node] = path[node] = true;
-
-        for (int next : adj[node]) {
-            if (!vis[next]) {
-                if (dfs(next, adj, vis, path)) return true;
-            } else if (path[next]) {
-                return true;
+public:
+    bool DFS(vector<vector<int>> &adj, vector<bool> &visited, vector<bool> &pathvisited, int node) {
+        pathvisited[node] = visited[node] = true;
+        for(int &i : adj[node]) {
+            if(pathvisited[i]) return true;
+            if(!visited[i]) {
+                if(DFS(adj,visited,pathvisited,i)) return true;
             }
         }
-        
-        path[node] = false;
+        pathvisited[node] = false;
         return false;
     }
-
-public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> adj(numCourses);
-        for (const auto& pre : prerequisites) {
-            adj[pre[1]].push_back(pre[0]);
+    bool canFinish(int n, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> adj (n);
+        for(auto &it : prerequisites) {
+            adj[it[0]].push_back(it[1]);
         }
-
-        vector<bool> vis(numCourses, false);
-        vector<bool> path(numCourses, false);
-
-        for (int i = 0; i < numCourses; ++i) {
-            if (!vis[i]) {
-                if (dfs(i, adj, vis, path)) return false;
+        vector<bool> visited (n,false);
+        vector<bool> pathvisited (n,false);
+        for(int start = 0; start<n; start++) {
+            if(!visited[start]) {
+                if(DFS(adj,visited,pathvisited,start)) return false;
             }
         }
-
         return true;
     }
 };
