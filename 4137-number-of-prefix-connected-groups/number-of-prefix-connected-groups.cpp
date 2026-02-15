@@ -7,7 +7,7 @@ public:
             if(words[i].length() >= k) 
                 mpp[words[i].substr(0,k)]++;
         }
-        for(auto &it : mpp) {
+        for(auto it : mpp) {
             if(it.second >= 2) max_count++;
         }
         return max_count;
