@@ -7,7 +7,7 @@ public:
         for(int i = 0; i<n; i++) {
             freq[nums[i]]++;
         }
-        for(auto &it : freq) {
+        for(const auto &it : freq) {
             freq_count[it.second]++;
         }
         for(int i = 0; i<n; i++) {
