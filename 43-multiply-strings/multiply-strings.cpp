@@ -1,6 +1,6 @@
 class Solution {
 public:
-    string add (string num1, string num2) {
+    string add (string &num1, string &num2) {
         string res = "";
         int i = num1.length()-1;
         int j = num2.length()-1;
