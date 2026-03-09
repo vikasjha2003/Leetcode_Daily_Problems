@@ -13,6 +13,4 @@ class Solution:
                 j -= 1
             res += str(carry % 2)
             carry //= 2
-        rev = res[::-1]
-        return rev
-            
+        return res[::-1]            
