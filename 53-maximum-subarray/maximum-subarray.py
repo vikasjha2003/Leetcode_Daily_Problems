@@ -1,6 +1,6 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        maxsum = -2**31
+        maxsum = nums[0]
         sum = 0
         for num in nums :
             sum += num
