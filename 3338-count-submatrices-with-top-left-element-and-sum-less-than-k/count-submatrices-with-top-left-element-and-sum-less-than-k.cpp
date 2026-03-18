@@ -9,6 +9,7 @@ public:
                 if(i > 0) grid[i][j] = grid[i-1][j] + row_sum;
                 else grid[i][j] = row_sum;
                 if (grid[i][j] <= k) count++;
+                else break;
             }
         }
         return count;
