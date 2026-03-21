@@ -4,7 +4,7 @@ public:
         for(int i = y; i < y+k; i++) {
             int u = x;
             int b = x+k-1;
-            while(u<b) {
+            while(u < b) {
                 swap(grid[u][i],grid[b][i]);
                 u++;
                 b--;
