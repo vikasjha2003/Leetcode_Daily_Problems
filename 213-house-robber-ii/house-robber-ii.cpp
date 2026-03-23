@@ -1,23 +1,20 @@
 class Solution {
 public:
-    int solve1 (vector<int> &nums, int idx, vector<int> &dp) { // robbing house 1
-        if(idx >= nums.size()-1) return 0;
-        if(dp[idx] != -1) return dp[idx];
-        int steal = nums[idx] + solve1(nums,idx+2,dp);
-        int leave = solve1(nums,idx+1,dp);
-        return dp[idx] = max(steal , leave);
-    }
-    int solve2 (vector<int> &nums, int idx, vector<int> &dp) { // robbing last house 
-        if(idx >= nums.size()) return 0;
-        if(dp[idx] != -1) return dp[idx];
-        int steal = nums[idx] + solve2(nums,idx+2,dp);
-        int leave = solve2(nums,idx+1,dp);
-        return dp[idx] = max(steal , leave);
+    int solve (vector<int> &nums) {
+        vector<int> dp (nums.size() + 1, -1);
+        dp[0] = 0;
+        dp[1] = nums[0];
+        for(int i = 2; i<=nums.size(); i++) {
+            int steal = dp[i-2] + nums[i-1];
+            int leave = dp[i-1];
+            dp[i] = max(steal,leave);
+        }
+        return dp.back();
     }
     int rob(vector<int>& nums) {
         if(nums.size() == 1) return nums[0];
-        vector<int> dp1 (nums.size(),-1);
-        vector<int> dp2 (nums.size(),-1);
-        return max(solve1(nums,0,dp1),solve2(nums,1,dp2));
+        vector<int> start (nums.begin(), nums.end()-1);
+        vector<int> end (nums.begin()+1, nums.end());
+        return max(solve(start),solve(end));
     }
 };
