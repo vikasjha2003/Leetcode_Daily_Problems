@@ -1,15 +1,16 @@
 class Solution {
 public:
     int solve (vector<int> &nums) {
-        vector<int> dp (nums.size() + 1, -1);
-        dp[0] = 0;
-        dp[1] = nums[0];
+        int prev2 = 0;
+        int prev1 = nums[0];
         for(int i = 2; i<=nums.size(); i++) {
-            int steal = dp[i-2] + nums[i-1];
-            int leave = dp[i-1];
-            dp[i] = max(steal,leave);
+            int steal = prev2 + nums[i-1];
+            int leave = prev1;
+            int temp = max(steal,leave);
+            prev2 = prev1;
+            prev1 = temp;
         }
-        return dp.back();
+        return prev1;
     }
     int rob(vector<int>& nums) {
         if(nums.size() == 1) return nums[0];
