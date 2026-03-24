@@ -3,18 +3,15 @@ public:
     int n;
     long long maxAlternatingSum(vector<int>& nums) {
         n = nums.size();
-        vector<vector<long long>> dp (n+1,vector<long long> (2,0));
-        // 0 = even , 1 = odd
-        for(int i = 1; i<=n; i++) {
-            int val = nums[i-1];
-            for(int j = 0; j<2; j++) {
-                if(j == 1) val = -val;
-                long long skip = dp[i-1][j];
-                long long take = dp[i-1][!j] + val;
-                dp[i][j] = max(skip,take);
-            }
+        long long prev_even = 0, prev_odd = 0;
+        long long cur_even = 0, cur_odd = 0;
+        for(int i = 0; i < n; i++) {
+            cur_odd = max(prev_odd,prev_even + nums[i]);
+            cur_even = max(prev_even,prev_odd - nums[i]);
+            prev_odd = cur_odd;
+            prev_even = cur_even;
         }
-        return max(dp[n][0],dp[n][1]);
+        return max(cur_even,cur_odd);
     }
     
 };
