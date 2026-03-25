@@ -2,14 +2,12 @@ class Solution {
 public:
     int n ;
     int solve (vector<int>& nums, int idx, int last, vector<vector<int>> &dp) {
+        while(idx < n && nums[idx] <= nums[last]) idx++;
         if(idx == n) return 0;
         if(dp[idx][last] != -1) return dp[idx][last];
-        if(nums[idx] > nums[last]) {
-            int pick = 1 + solve(nums,idx+1,idx,dp);
-            int no_pick = solve(nums,idx+1,last,dp);
-            return dp[idx][last] = max(pick,no_pick);
-        }
-        return dp[idx][last] = solve(nums,idx+1,last,dp);
+        int pick = 1 + solve(nums,idx+1,idx,dp);
+        int no_pick = solve(nums,idx+1,last,dp);
+        return dp[idx][last] = max(pick,no_pick);
     }
     int lengthOfLIS(vector<int>& nums) {
         n = nums.size();
