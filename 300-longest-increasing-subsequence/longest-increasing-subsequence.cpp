@@ -3,6 +3,7 @@ public:
     int n ;
     int solve (vector<int>& nums, int idx, int last, vector<vector<int>> &dp) {
         if(idx == n) return 0;
+        // doing last +1 to handle -1 case for index
         if(dp[idx][last+1] != -1) return dp[idx][last+1];
         int pick = 0;
         if(last == -1 || nums[idx] > nums[last]) 
