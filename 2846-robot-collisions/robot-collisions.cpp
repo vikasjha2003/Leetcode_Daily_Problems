@@ -14,10 +14,12 @@ public:
         stack<int> st;
         vector<pair<int,int>> res;
         for(int i = 0; i<n; i++) {
+            // rr , rl , ll
             if(st.empty() || st.top() == 1 || st.top() == quad[i][3]) {
                 st.push(quad[i][3]);
                 res.push_back({quad[i][1],quad[i][2]});
-            } else {
+            } // lr 
+            else {
                 if (res.back().second == quad[i][2]) {
                     res.pop_back();
                     st.pop();
