@@ -1,22 +1,38 @@
 class Solution {
 public:
-
-    // Copied
+    int m , n;
+    
+    int solve(vector<vector<int>>& coins, int cnt, int row, int col, vector<vector<vector<int>>>& dp) {
+        if(row == m || col == n) return INT_MIN;
+        int val = coins[row][col];
+        if(row == m-1 && col == n-1) {
+            if(cnt == 0 || val >= 0) return val;
+            else return 0;
+        }
+        if(dp[row][col][cnt] != INT_MIN) return dp[row][col][cnt];
+        
+        if(val >= 0) {
+            int down = solve(coins,cnt,row+1,col,dp);
+            int right = solve(coins,cnt,row,col+1,dp);
+            return dp[row][col][cnt] = max(down , right) + val; 
+        }
+        else {
+            int skip = INT_MIN, take = INT_MIN;
+            if(cnt != 0) {
+                int down = solve(coins,cnt-1,row+1,col,dp);
+                int right = solve(coins,cnt-1,row,col+1,dp);
+                skip = max(down,right);
+            }
+            int down = solve(coins,cnt,row+1,col,dp);
+            int right = solve(coins,cnt,row,col+1,dp);
+            take = max(down , right) + val; 
+            return dp[row][col][cnt] = max(skip,take);            
+        }
+    }
 
     int maximumAmount(vector<vector<int>>& coins) {
-        int n = coins.size(), m = coins[0].size();
-        vector dp(n, vector(m, vector<int>(3, -1e9)));
-        dp[0][0][1] = dp[0][0][2] = 0, dp[0][0][0] = coins[0][0];
-        
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < m; j++)
-                for (int k = 0; k < 3; k++) {
-                    if (i) dp[i][j][k] = max(dp[i][j][k], dp[i - 1][j][k] + coins[i][j]);
-                    if (i && k) dp[i][j][k] = max(dp[i][j][k], dp[i - 1][j][k - 1]);
-                    if (j) dp[i][j][k] = max(dp[i][j][k], dp[i][j - 1][k] + coins[i][j]);
-                    if (j && k) dp[i][j][k] = max(dp[i][j][k], dp[i][j - 1][k - 1]);
-                }
-        int ans = *max_element(dp[n - 1][m - 1].begin(), dp[n - 1][m - 1].end());
-        return ans;
+        m = coins.size(), n = coins[0].size();
+        vector<vector<vector<int>>> dp (m, vector<vector<int>> (n, vector<int> (3,INT_MIN)));
+        return solve(coins,2,0,0,dp);
     }
 };
