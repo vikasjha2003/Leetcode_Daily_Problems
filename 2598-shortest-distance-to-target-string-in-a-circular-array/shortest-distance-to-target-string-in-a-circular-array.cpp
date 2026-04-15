@@ -10,17 +10,21 @@ public:
             if(right != startIndex) {
                 if(words[right] == target) {
                     res = min(res,cntr);
+                    right = startIndex;
+                } else {
+                    cntr++;
+                    right = (right + 1) % n;
                 }
-                right = (right + 1) % n;
             }
             if(left != startIndex) {
                 if(words[left] == target) {
                     res = min(res,cntl);
+                    left = startIndex;
+                } else {
+                    cntl++;
+                    left = (left - 1 + n) % n;
                 }
-                left = (left - 1 + n) % n;
             }
-            cntr++;
-            cntl++;
         }
         if(res == n+1) return -1;
         return res;
