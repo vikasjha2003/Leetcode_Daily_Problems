@@ -4,8 +4,7 @@ public:
         if(words[startIndex] == target) return 0;
         int n = words.size();
         int right = (startIndex + 1) % n , left = (startIndex - 1 + n) % n;
-        int cntr = 1;
-        int cntl = 1;
+        int cntr = 1 , cntl = 1;
         int res = n+1;
         while(right != startIndex || left != startIndex) {
             if(right != startIndex) {
