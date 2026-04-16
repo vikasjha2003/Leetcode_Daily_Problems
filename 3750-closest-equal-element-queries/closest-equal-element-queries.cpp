@@ -1,7 +1,17 @@
 class Solution {
 public:
 
-    // Should accept but with a very poor complexity.
+    int binary_search (vector<int> &arr, int &target) {
+        int lo = 0;
+        int hi = arr.size()-1;
+        while(lo <= hi) {
+            int mid = lo + (hi - lo)/2;
+            if(arr[mid] == target) return mid;
+            else if (arr[mid] < target) lo = mid + 1;
+            else hi = mid - 1;
+        }
+        return -1;
+    }
 
     vector<int> solveQueries(vector<int>& nums, vector<int>& queries) {
         int n = nums.size();
@@ -12,22 +22,15 @@ public:
         }
 
         for(int &q : queries) { 
-            int m = mpp[nums[q]].size();
+            vector<int> &v = mpp[nums[q]];
+            int m = v.size();
             if(m == 1) q = -1;
             else {
-                int lo = 0;
-                int hi = m - 1;
-                int mid;
-                while(lo <= hi) {
-                    mid = lo + (hi - lo) / 2;
-                    if(mpp[nums[q]][mid] == q) break;
-                    else if (mpp[nums[q]][mid] > q) hi = mid - 1;
-                    else lo = mid + 1;
-                }
-                int left = mpp[nums[q]][(mid -1 + m) % m];
-                int right = mpp[nums[q]][(mid+1) % m];
-                int vall = min(abs(q - left), n - abs(q-left));
-                int valr = min(abs(q - right), n - abs(q-right));
+                int idx = binary_search(v,q);
+                int left = abs(q - v[(idx -1 + m) % m]);
+                int right = abs(q  - v[(idx +1) % m]);
+                int vall = min(left, n - left);
+                int valr = min(right, n - right);
                 q = min(vall,valr);
             }
         }
