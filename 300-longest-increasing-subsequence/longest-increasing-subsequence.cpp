@@ -9,7 +9,6 @@ public:
                 if(nums[j] < nums[i]) {
                     dp[i] = max(dp[i] , dp[j]+1);
                 }
-                if(j == dp[i] - 2) break;
             }
             res = max(res,dp[i]);
         }
