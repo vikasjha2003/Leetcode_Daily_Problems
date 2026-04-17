@@ -1,8 +1,6 @@
 class Solution {
 public:
 
-    int n;
-
     bool is_predecessor (string &s1, string &s2) {
         if(s2.length() - s1.length() != 1) return false;
         int i = 0, j = 0;
@@ -20,27 +18,23 @@ public:
         return true;
     }
 
-    int solve (vector<string>& words, int idx, int last, vector<vector<int>> &dp) {
-        if(idx == n) return 0;
-        if(dp[idx][last + 1] != -1) return dp[idx][last + 1];
-
-        int skip = solve(words,idx+1,last,dp);
-
-        int take = 0;
-        if(last == -1 || is_predecessor(words[last],words[idx])) 
-            take = 1 + solve(words,idx+1,idx,dp);
-
-        return dp[idx][last + 1] = max(skip,take);
-    }
-
     int longestStrChain(vector<string>& words) {
-        n = words.size();
-        vector<vector<int>> dp (n,vector<int> (n+1,-1));
+        int n = words.size();
+        vector<int> dp (n,1);
 
         sort(words.begin(), words.end(), [](string &s1, string &s2) {
             return s1.length() < s2.length();
         });
 
-        return solve(words,0,-1,dp);
+        int res = 1;
+
+        for(int i = 1; i<n; i++) {
+            for(int j = i-1; j >= 0; j--) {
+                if(is_predecessor(words[j],words[i])) dp[i] = max(dp[i],dp[j] + 1);
+            }
+            res = max(res,dp[i]);
+        }
+
+        return res;
     }
 };
