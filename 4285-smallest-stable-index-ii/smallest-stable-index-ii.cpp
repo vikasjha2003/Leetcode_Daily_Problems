@@ -2,22 +2,25 @@ class Solution {
 public:
     int firstStableIndex(vector<int>& nums, int k) {
         int n = nums.size();
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
 
-        for(int i = 0; i < n; i++) {
-            pq.push({nums[i],i});
+        vector<int> pref (n,0);
+        pref[0] = nums[0];
+
+        for(int i = 1; i<n; i++) {
+            pref[i] = max(nums[i], pref[i-1]);
         }
 
-        int stable = INT_MAX;
-        int maxi = nums[0];
+        int mini = nums[n-1];
+        int res = -1;
 
-        for(int i = 0; i<n; i++) {
-            if(maxi < nums[i]) maxi = nums[i];
-            while(pq.top().second < i) pq.pop();
-            stable = min(stable , maxi - pq.top().first);
-            if(stable <= k) return i;
+        for(int i = n-1; i >= 0; i--) {
+            if(mini > nums[i]) {
+                mini = nums[i];
+            }
+            pref[i] -= mini;
+            if(pref[i] <= k) res = i;
         }
 
-        return -1;
+        return res;
     }
 };
