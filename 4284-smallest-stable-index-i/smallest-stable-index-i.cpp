@@ -2,24 +2,25 @@ class Solution {
 public:
     int firstStableIndex(vector<int>& nums, int k) {
         int n = nums.size();
-        int stable = INT_MAX;
-        int maxi = 0;
-        int mini = -1;
-        for(int i = 0; i<n; i++) {
-            if (nums[i] > nums[maxi]) {
-                maxi = i;
-            }
-            if(i > mini) {
-                mini = i;
-                for(int j = i + 1; j<n; j++) {
-                    if (nums[j] < nums[mini]) {
-                        mini = j;
-                    }
-                }
-            }
-            stable = min(stable,nums[maxi] - nums[mini]);
-            if(stable <= k) return i;
+
+        vector<int> pref (n,0);
+        pref[0] = nums[0];
+
+        for(int i = 1; i<n; i++) {
+            pref[i] = max(nums[i], pref[i-1]);
         }
-        return -1;
+
+        int mini = nums[n-1];
+        int res = -1;
+
+        for(int i = n-1; i >= 0; i--) {
+            if(mini > nums[i]) {
+                mini = nums[i];
+            }
+            pref[i] -= mini;
+            if(pref[i] <= k) res = i;
+        }
+
+        return res;
     }
 };
