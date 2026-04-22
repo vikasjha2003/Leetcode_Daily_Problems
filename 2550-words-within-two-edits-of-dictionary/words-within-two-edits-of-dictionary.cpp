@@ -1,17 +1,13 @@
 class Solution {
 public:
     vector<string> twoEditWords(vector<string>& queries, vector<string>& dictionary) {
-        int n = queries.size();
-        int m = dictionary.size();
-        int o = queries[0].length();
+        int n = queries[0].length();
         vector<string> res;
-        for(int i = 0; i<n; i++) {
-            string &str = queries[i]; 
-            for(int j = 0; j<m; j++) {
-                string &s = dictionary[j];
+        for(string &str : queries) { 
+            for(string &s : dictionary) {
                 int cnt = 0;
-                for(int k = 0; k<o; k++) {
-                    if(str[k] != s[k]) cnt++;
+                for(int idx = 0; idx < n; idx++) {
+                    if(str[idx] != s[idx]) cnt++;
                     if (cnt > 2) break;
                 }
                 if(cnt <= 2) {
