@@ -6,7 +6,8 @@ public:
         if(idx2 == n) return 0;
         if(dp[idx1][idx2] != -1) return dp[idx1][idx2];
 
-        if(text1[idx1] == text2[idx2]) return dp[idx1][idx2] = 1 + solve(text1,text2, idx1 + 1, idx2 + 1, dp);
+        if(text1[idx1] == text2[idx2]) 
+            return dp[idx1][idx2] = 1 + solve(text1,text2, idx1 + 1, idx2 + 1, dp);
         else {
             int first = solve(text1,text2, idx1 + 1, idx2, dp);
             int second = solve(text1,text2, idx1, idx2 + 1, dp);
