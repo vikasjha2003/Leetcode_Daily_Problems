@@ -1,6 +1,8 @@
 class Solution {
 public:
 
+    // prefix sum logic same as 1685, hash part is new
+
     vector<long long> distance(vector<int>& nums) {
         int n = nums.size();
 
