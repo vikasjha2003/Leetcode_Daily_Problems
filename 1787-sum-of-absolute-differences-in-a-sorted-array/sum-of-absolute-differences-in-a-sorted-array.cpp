@@ -8,16 +8,16 @@ public:
         pref[0] = nums[0];
         suff[n-1] = nums[n-1];
 
-        for(int i = 1, j = n-2; i<n; i++ , j--) {
+        for(int i = 1; i<n; i++) {
             pref[i] = pref[i-1] + nums[i];
-            suff[j] = suff[j+1] + nums[j];
+            suff[n-i-1] = suff[n-i] + nums[n-i-1];
         }
 
         vector<int> res(n);
 
         for(int i = 0; i<n; i++) {
-            int left = abs((nums[i] * (i+1)) - pref[i]);
-            int right = abs((nums[i] * (n - i)) - suff[i]);
+            int left = (nums[i] * i) - pref[i];
+            int right = suff[i] - (nums[i] * (n-i-1));
             res[i] = left + right;
         }
 
