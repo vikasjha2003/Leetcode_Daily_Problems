@@ -14,7 +14,7 @@ public:
             pref_sum += nums[i];
             suff_sum += nums[n-i-1];
             res[i] += (nums[i] * i) - pref_sum;
-            res[n-i-1] += suff_sum - (nums[n-i-1] * (n - (n-i-1) - 1));
+            res[n-i-1] += suff_sum - (nums[n-i-1] * i);
         }
 
         return res;
