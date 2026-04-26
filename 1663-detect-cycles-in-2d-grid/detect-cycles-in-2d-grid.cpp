@@ -24,10 +24,9 @@ public:
 
                 if(nr <0 || nr == m || nc < 0 || nc == n) continue;
 
-                if(visited[nr][nc] && grid[nr][nc] == grid[row][col] 
-                && nr != pr && nc != pc) return true;
+                if(grid[nr][nc] != grid[row][col] || (nr == pr && nc == pc)) continue;
 
-                if(visited[nr][nc] || grid[nr][nc] != grid[row][col]) continue;
+                if(visited[nr][nc]) return true;;
 
                 visited[nr][nc] = true;
                 q.push({{nr,nc},{row,col}});                
