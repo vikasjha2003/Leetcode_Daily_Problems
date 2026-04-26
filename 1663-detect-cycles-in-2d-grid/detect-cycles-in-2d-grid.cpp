@@ -1,36 +1,24 @@
 class Solution {
 public:
     int m , n;
+    int drow[4] = {0,0,1,-1};
+    int dcol[4] = {1,-1,0,0};
 
-    bool BFS (vector<vector<char>>& grid, vector<vector<bool>>& visited, int &row, int &col) {
-        int drow[4] = {0,0,1,-1};
-        int dcol[4] = {1,-1,0,0};
+    bool DFS (vector<vector<char>>& grid, vector<vector<bool>>& visited, int &row, int &col, int &pr , int &pc) {
+        visited[row][col] = true;
 
-        queue<pair<pair<int,int>,pair<int,int>>> q;
-        q.push({{row,col},{-1,-1}});
+        for(int i = 0; i<4; i++) {
+            int nr = row + drow[i];
+            int nc = col + dcol[i];
 
-        while(!q.empty()) {
-            auto it = q.front();
-            q.pop();
+            if(nr <0 || nr == m || nc < 0 || nc == n) continue;
 
-            int &row = it.first.first;
-            int &col = it.first.second;
-            int &pr = it.second.first;
-            int &pc = it.second.second; 
+            if(grid[nr][nc] != grid[row][col] || (nr == pr && nc == pc)) continue;
 
-            for(int i = 0; i<4; i++) {
-                int nr = row + drow[i];
-                int nc = col + dcol[i];
+            if(visited[nr][nc]) return true;
 
-                if(nr <0 || nr == m || nc < 0 || nc == n) continue;
-
-                if(grid[nr][nc] != grid[row][col] || (nr == pr && nc == pc)) continue;
-
-                if(visited[nr][nc]) return true;;
-
-                visited[nr][nc] = true;
-                q.push({{nr,nc},{row,col}});                
-            }
+            if(DFS(grid,visited,nr,nc,row,col)) return true;
+            
         }
 
         return false;
@@ -41,11 +29,11 @@ public:
         n = grid[0].size();
 
         vector<vector<bool>> visited (m , vector<bool> (n , false));
+        int pr = -1, pc = -1;
         for(int i = 0; i<m; i++) {
             for(int j = 0; j<n; j++) {
                 if(!visited[i][j]) {
-                    visited[i][j] = true;
-                    if(BFS(grid,visited,i,j)) return true;
+                    if(DFS(grid,visited,i,j,pr,pc)) return true;
                 }
             }
         }
