@@ -4,7 +4,7 @@ public:
     int drow[4] = {0,0,1,-1};
     int dcol[4] = {1,-1,0,0};
 
-    bool DFS (vector<vector<char>>& grid, vector<vector<bool>>& visited, int row, int col, int pr , int pc) {
+    bool DFS (vector<vector<char>>& grid, vector<vector<bool>>& visited, int &row, int &col, int &pr , int &pc) {
         visited[row][col] = true;
 
         for(int i = 0; i<4; i++) {
@@ -30,11 +30,11 @@ public:
         n = grid[0].size();
 
         vector<vector<bool>> visited (m , vector<bool> (n , false));
-        
+        int pr = -1, pc = -1;
         for(int i = 0; i<m; i++) {
             for(int j = 0; j<n; j++) {
                 if(!visited[i][j]) {
-                    if(DFS(grid,visited,i,j,-1,-1)) return true;
+                    if(DFS(grid,visited,i,j,pr,pc)) return true;
                 }
             }
         }
