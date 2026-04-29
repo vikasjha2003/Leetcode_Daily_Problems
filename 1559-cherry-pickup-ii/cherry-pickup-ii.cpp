@@ -1,32 +1,34 @@
 class Solution {
 public:
-    int m , n;
-    int solve (vector<vector<int>>& grid, int row, int col1, int col2, int (&dp)[70][70][70]) {
-        if(row == m) return 0;
-        if(dp[row][col1][col2] != -1) return dp[row][col1][col2];
 
-        int res = 0;
-        int cur = grid[row][col1];
-        if(col1 != col2) cur += grid[row][col2];
+    int cherryPickup(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
 
-        for(int i = -1; i<=1; i++) {
-            for(int j = -1; j<=1; j++) {
-                int nc1 = col1 + i;
-                int nc2 = col2 + j;
-                if (nc1 < 0 || nc1 == n ||nc2 < 0 || nc2 == n) continue;
-                res = max(res, solve(grid, row + 1, nc1, nc2, dp));
+        int dp[71][71][71];
+        memset(dp, 0, sizeof(dp));
+
+        int maxi = 0;
+
+        for(int row = m-1; row>= 0; row--) {
+            for (int col1 = min(row,n-1); col1 >= 0; col1--) {
+                for(int col2 = max(0,n - row -1); col2 < n; col2++) {
+                    int cur = grid[row][col1];
+                    if(col1 != col2) cur += grid[row][col2];
+                    int res = 0;
+                    for(int i = -1; i <= 1; i++) {
+                        if(col1 + i < 0 || col1 + i == n) continue;
+                        for(int j = -1; j<= 1; j++) {
+                            if(col2 + j < 0 || col2 + j == n) continue;
+                            res = max(res,dp[row + 1][col1 + i][col2 + j]);
+                        }
+                    }
+                    dp[row][col1][col2] = cur + res;
+                    maxi = max(maxi,dp[row][col1][col2]);
+                }
             }
         }
 
-        return dp[row][col1][col2] = cur + res;
-    }
-    int cherryPickup(vector<vector<int>>& grid) {
-        m = grid.size();
-        n = grid[0].size();
-
-        int dp[70][70][70];
-        memset(dp, -1, sizeof(dp));
-        
-        return solve(grid,0,0,n-1,dp);
+        return maxi;
     }
 };
