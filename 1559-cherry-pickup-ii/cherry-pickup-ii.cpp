@@ -5,7 +5,7 @@ public:
         int m = grid.size();
         int n = grid[0].size();
 
-        int dp[71][71][71];
+        int dp[m+1][n+1][n+1];
         memset(dp, 0, sizeof(dp));
 
         int maxi = 0;
