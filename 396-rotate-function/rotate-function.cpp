@@ -17,7 +17,7 @@ public:
         int res = fun;
 
         for(int i = n-1; i>=0; i--) {
-            fun = fun + sum - nums[i] * n;
+            fun += sum - nums[i] * n;
             res = max(res,fun);
         }
 
