@@ -11,7 +11,7 @@ It serves as a record of my consistency and progress in problem solving.
 * 🔄 Synced using LeetSync
 * 💡 Focus on improving DSA and problem-solving skills
 * 🧠 Covers a wide range of topics and difficulty levels
-* 
+  
 ---
 
 ## 🛠️ Tech Stack
