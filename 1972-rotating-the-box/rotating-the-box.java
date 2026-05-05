@@ -6,19 +6,16 @@ class Solution {
         char[][] box = new char[n][m];
 
         for(int i = 0; i<m; i++) {
-            int l = n-1;
             int r = n-1;
-            while(l >= 0) {
+            for(int l = n-1; l>= 0; l--) {
                 if(boxGrid[i][l] == '#') {
-                    char temp = boxGrid[i][r];
-                    boxGrid[i][r] = boxGrid[i][l];
-                    boxGrid[i][l] = temp;
+                    boxGrid[i][l] = '.';
+                    boxGrid[i][r] = '#';
                     r--;
                 }
                 if (boxGrid[i][l] == '*') {
                     r = l-1;
                 }
-                l--;
             }
         }
 
