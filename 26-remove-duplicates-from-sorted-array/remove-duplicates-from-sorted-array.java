@@ -4,9 +4,7 @@ class Solution {
         int idx = 1, u = 1;
         while(idx < n) {
             if(nums[idx] != nums[u-1]) {
-                int temp = nums[u];
                 nums[u] = nums[idx];
-                nums[idx] = temp;
                 u++;
             }
             idx++;
