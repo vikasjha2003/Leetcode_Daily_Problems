@@ -1,19 +1,9 @@
 class Solution {
-    private boolean isVowel (char c) {
-        if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') return true;
-        return false;
-    }
-    public String trimTrailingVowels(String s) {
-        StringBuilder sb = new StringBuilder(s);
-
-        while(sb.length() > 0) {
-            if(isVowel(sb.charAt(sb.length() -1))) {
-                sb.deleteCharAt(sb.length() - 1);
-            } else {
-                return sb.toString();
+        public String trimTrailingVowels(String s) {
+            int i = s.length() - 1;
+            while (i >= 0 && (s.charAt(i) == 'a' || s.charAt(i) == 'e' || s.charAt(i) == 'i' || s.charAt(i) == 'o' || s.charAt(i) == 'u')) {
+                i--;
             }
+            return s.substring(0, i + 1);
         }
-
-        return sb.toString();
-    }
 }
