@@ -1,24 +1,22 @@
 class Solution {
+    public int maximumJumps(int[] nums, int target) {
+        int n = nums.length;
 
-    public int solve (int[] nums, int target, int idx, int[] dp) {
-        if(idx == nums.length -1) return 0;
-        if(dp[idx] != -2) return dp[idx];
-        int res = -1;
+        int[] dp = new int[n];
+        Arrays.fill(dp,-1);
 
-        for(int i = idx + 1; i<nums.length; i++) {
-            int val = nums[i] - nums[idx];
-            if(-target <= val && val <= target) {
-                int v = solve(nums,target,i,dp);
-                if(v != -1) res = Math.max(res, 1 + v);
+        dp[n-1] = 0;
+
+        for(int i = n-2; i>=0; i--) {
+            for(int j = i + 1; j < n; j++) {
+                if(dp[j] == -1) continue;
+                int val = nums[j] - nums[i];
+                if(-target <= val && val <= target) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
             }
         }
 
-        return dp[idx] = res;        
-    }
-
-    public int maximumJumps(int[] nums, int target) {
-        int[] dp = new int[nums.length];
-        Arrays.fill(dp,-2);
-        return solve(nums,target,0,dp);
+        return dp[0];
     }
 }
