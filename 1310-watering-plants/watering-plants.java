@@ -2,14 +2,16 @@ class Solution {
     public int wateringPlants(int[] plants, int capacity) {
         int cur = capacity;
         int res = 0;
-        for(int i = 0; i<plants.length; i++) {
-            cur -= plants[i];            
-            if(i+1 < plants.length && plants[i+1] > cur) {
+
+        for(int i = 0; i<plants.length; i++) {          
+            if(plants[i] > cur) {
                 cur = capacity;
-                res += (i+1)*2;
+                res += (i)*2;
             }
+            cur -= plants[i];  
             res++;
         }
+
         return res;
     }
 }
