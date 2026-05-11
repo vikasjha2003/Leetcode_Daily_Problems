@@ -1,28 +1,20 @@
 class Solution {
 
-    public int[] copyOf (int[] nums, int l, int r) {
-        int[] arr = new int[r-l+1];
-        for(int i = 0; i < arr.length; i++) {
-            arr[i] = nums[i+l];
-        }
-        return arr;
-    }
-
-    public Boolean flag (int[] arr) {
-        int maxi = arr[0];
-        int mini = arr[0];
+    public Boolean flag (int[] nums, int l, int r) {
+        int maxi = nums[l];
+        int mini = nums[l];
         Set<Integer> st = new HashSet();
-        st.add(arr[0]);
+        st.add(nums[l]);
 
-        for(int i = 1; i<arr.length; i++) {
-            maxi = Math.max(maxi,arr[i]);
-            mini = Math.min(mini,arr[i]);
-            st.add(arr[i]);
+        for(int i = l; i <= r; i++) {
+            maxi = Math.max(maxi,nums[i]);
+            mini = Math.min(mini,nums[i]);
+            st.add(nums[i]);
         }
 
-        if((maxi - mini) % (arr.length - 1) != 0) return false;
+        if((maxi - mini) % (r - l) != 0) return false;
 
-        int d = (maxi - mini) / (arr.length - 1);
+        int d = (maxi - mini) / (r - l);
         int a = mini + d;
 
         while(a < maxi) {
@@ -37,8 +29,7 @@ class Solution {
         List<Boolean> ans = new ArrayList<>();
 
         for(int i = 0; i<l.length; i++) {
-            int[] arr = copyOf(nums,l[i],r[i]);
-            ans.add(flag(arr));
+            ans.add(flag(nums,l[i],r[i]));
         }
 
         return ans;
