@@ -15,7 +15,7 @@ class Solution {
         for(int i = 0; i<diff.length; i++) {
             cumsum += diff[i];
             int a = cumsum + (sb.charAt(i) - 'a');
-            int mod = Math.floorMod(a, 26);
+            int mod = (a % 26 + 26) % 26;
             sb.setCharAt(i,(char)(mod + 'a'));
         }
 
