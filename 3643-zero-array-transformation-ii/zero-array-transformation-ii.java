@@ -14,7 +14,7 @@ class Solution {
 
         for(int i = 0; i<nums.length; i++) {
             cumsum += diff[i];
-            if(nums[i] + cumsum > 0) return false;
+            if(cumsum + nums[i] > 0) return false;
         }
 
         return true;
@@ -27,8 +27,12 @@ class Solution {
     }
     public int minZeroArray(int[] nums, int[][] queries) {
         if(check(nums,queries)) return 0;
+
         int low = 0;
         int high = queries.length - 1;
+
+        if(!isZero(nums,queries,high)) return -1;
+
         int ans = Integer.MAX_VALUE;
         while(low <= high) {
             int mid = low + (high - low)/2;
@@ -40,6 +44,6 @@ class Solution {
             }
         }
 
-        return ans == Integer.MAX_VALUE ? -1 : ans;
+        return ans;
     }
 }
