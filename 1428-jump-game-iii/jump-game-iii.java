@@ -1,17 +1,30 @@
 class Solution {
-
-    public boolean solve(int[] arr, int idx, boolean[] visited) {
-        if(idx < 0 || idx >= arr.length || visited[idx]) return false;
-        if(arr[idx] == 0) return true;
-
-        visited[idx] = true;
-        
-        return solve(arr,idx - arr[idx],visited) || solve(arr,idx + arr[idx],visited);
-    }
-
     public boolean canReach(int[] arr, int start) {
         boolean[] visited = new boolean[arr.length];
-        return solve(arr,start,visited);
-    }
+        Queue<Integer> q = new LinkedList<>();
 
+        q.offer(start);
+        visited[start] = true;
+
+        while(!q.isEmpty()) {
+            int idx = q.poll();
+
+            if(arr[idx] == 0) return true;
+
+            int left = idx - arr[idx];
+            int right = idx + arr[idx];
+
+            if(left >= 0 && !visited[left]) {
+                visited[left] = true;
+                q.offer(left);
+            }
+
+            if(right < arr.length && !visited[right]) {
+                visited[right] = true;
+                q.offer(right);
+            }
+        }
+
+        return false;
+    }
 }
