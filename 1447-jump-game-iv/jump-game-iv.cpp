@@ -27,7 +27,7 @@ public:
                     q.push(idx-1);
                     vis[idx-1] = true;
                 }
-                if(idx+1 >= 0 && !vis[idx+1]) {
+                if(idx+1 < n && !vis[idx+1]) {
                     q.push(idx+1);
                     vis[idx+1] = true;
                 }
