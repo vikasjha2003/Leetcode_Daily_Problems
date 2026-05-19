@@ -1,17 +1,19 @@
+static vector<bool> isPrime = []() {
+    vector<bool> s(1e6 + 1,true);
+    s[1] = false;
+    for(int i = 2; i * i <= 1e6; i++) {
+        if(s[i] == true) { 
+            for(int j = i * i; j <= 1e6; j += i) {
+                if(s[j] == true) s[j] = false;
+            }
+        }
+    }
+    return s;
+}();
+
 class Solution {
 public:
     int minJumps(vector<int>& nums) {
-        int maxi = *max_element(nums.begin(),nums.end());
-        vector<bool> isPrime(maxi + 1,true);
-        isPrime[1] = false;
-        for(int i = 2; i * i <= maxi; i++) {
-            if(isPrime[i] == true) {
-                for(int j = i * i; j <= maxi; j += i) {
-                    isPrime[j] = false;
-                }
-            }
-        }
-
         int n = nums.size();
         unordered_map<int,vector<int>> pt;
         for(int i = 0; i<n; i++) {
