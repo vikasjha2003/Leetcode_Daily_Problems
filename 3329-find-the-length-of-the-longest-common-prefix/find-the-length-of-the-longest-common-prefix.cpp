@@ -4,8 +4,8 @@ public:
     int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
         int n = arr1.size();
         int o = arr2.size();
-        unordered_set<string> st;
 
+        unordered_set<string> st;
         int maxlen = 0;
 
         for(int i = 0; i<n; i++) {
