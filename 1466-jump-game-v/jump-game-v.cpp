@@ -8,15 +8,17 @@ public:
         int cnt = 0;
 
         for(int i = 1; i<= d; i++) {
-            if(idx + i < n && arr[idx + i] < arr[idx]) {
-                cnt = max(cnt,solve(arr,d,idx+i,dp));
-            } else break;
+            if(idx + i >= n || arr[idx + i] >= arr[idx]) {
+                break;
+            }
+            cnt = max(cnt,solve(arr,d,idx+i,dp));
         }
 
         for(int i = 1; i<= d; i++) {
-            if(idx - i >= 0 && arr[idx - i] < arr[idx]) {
-                cnt = max(cnt,solve(arr,d,idx-i,dp));
-            } else break;
+            if(idx - i < 0 || arr[idx - i] >= arr[idx]) {
+                break;
+            }
+            cnt = max(cnt,solve(arr,d,idx-i,dp));
         }
 
         return dp[idx] = cnt + 1;
@@ -31,8 +33,8 @@ public:
 
         for(int i = 0; i<n; i++) {
             if(dp[i] == 0) {
-                res = max(res,solve(arr,d,i,dp)); 
-            }
+                res = max(res,solve(arr,d,i,dp));
+            } 
         }
 
         return res;
