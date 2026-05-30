@@ -42,7 +42,7 @@ public:
             for(int i = 31; i>=0; i--) {
                 int bit = (x >> i) & 1;
                 if(node->containsKey(!bit)) {
-                    curMax = curMax | 1 << i;
+                    curMax += pow(2,i);
                     node = node->getKey(!bit);
                 } else {
                     node = node->getKey(bit);
