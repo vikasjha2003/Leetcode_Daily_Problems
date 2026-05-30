@@ -38,7 +38,7 @@ struct Trie {
         for(int i = 31; i>=0; i--) {
             int bit = (x >> i) & 1;
             if(node->containsKey(!bit)) {
-                curMax += pow(2,i);
+                curMax = curMax | 1<<i;
                 node = node->getKey(!bit);
             } else {
                 node = node->getKey(bit);
